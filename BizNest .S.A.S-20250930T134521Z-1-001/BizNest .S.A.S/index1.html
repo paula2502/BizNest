@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BizNezt - Impulsa tu Negocio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #fff;
+      color: #333;
+    }
+
+    /* ==== Header ==== */
+    header {
+      background: linear-gradient(90deg, #2CA7D9, #7A2C90); /* invertido */
+      padding: 15px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    header img {
+      height: 120px;
+    }
+
+    .slogan {
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    nav a {
+      color: #fff;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #FFD700;
+    }
+
+    /* ==== Botones ==== */
+    .btn {
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      color: #fff;
+      display: inline-block;
+    }
+
+    .btn.amarillo { background: #2CA7D9; }
+    .btn.azul { background: #7A2C90; }
+    .btn.rojo { background: #9B4F96; }
+    .btn.grande {
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      border-radius: 40px;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(122, 44, 144, 0.3);
+    }
+
+    /* ==== Slider ==== */
+   /* ==== Slider ==== */
+.slider {
+  position: relative;
+  max-width: 500px;   /* 👈 cambia aquí el ancho del slider */
+  height: 500px;       /* 👈 cambia aquí la altura del slider */
+  margin: 30px auto;
+  overflow: hidden;
+  border: 3px solid #2CA7D9;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(122,44,144,0.3);
+}
+
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* mantiene proporción */
+  border-radius: 15px;
+}
+
+.controls {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.controls span {
+  cursor: pointer;
+  font-size: 2rem;
+  color: white;
+  padding: 10px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+}
+
+.dots {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+}
+
+.dots span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 5px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.dots span.active {
+  background: #7A2C90;
+}
+
+    /* ==== Servicios ==== */
+    .servicios {
+      padding: 50px 5%;
+      background: linear-gradient(135deg, #f3f4f6, #e9f4ff);
+      text-align: center;
+    }
+
+    .servicios h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #7A2C90;
+    }
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      max-width: 960px;
+      margin: auto;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .producto {
+      min-width: 300px;
+      margin: 10px;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .producto img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .producto h3 {
+      margin-bottom: 10px;
+    }
+
+    .producto p {
+      margin-bottom: 20px; /* espacio antes del botón */
+      color: #555;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #7A2C90;
+      color: #fff;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      border-radius: 50%;
+      padding: 10px;
+      z-index: 20;
+    }
+
+    .carousel-btn.prev-prod { left: -40px; }
+    .carousel-btn.next-prod { right: -40px; }
+
+    /* ==== Nosotros ==== */
+    .nosotros {
+      padding: 60px 10%;
+      background: linear-gradient(135deg, #ffffff, #f2e8f9);
+      text-align: center;
+    }
+
+    .nosotros h2 {
+      color: #7A2C90;
+      margin-bottom: 20px;
+    }
+    
+
+    /* ==== Contacto ==== */
+    .contactenos {
+      padding: 60px 10%;
+      background: #f3f4f6;
+      text-align: center;
+      color: #7A2C90;
+    }
+
+    .contactenos button {
+      background: linear-gradient(90deg, #7A2C90, #2CA7D9);
+      color: #7A2C90;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+    /* ==== CTA ==== */
+    .cta-principal {
+      padding: 60px 10%;
+      background: linear-gradient(135deg, #7A2C90, #2CA7D9);
+      text-align: center;
+      color: #fff;
+    }
+
+    .cta-principal h2 {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<title>BizNezt .S.A.S</title>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo-container">
+      <img src="IMAGENES/imagenes.png" alt="BizNezt Logo">
+      <span class="slogan">“Transformamos las redes sociales en oportunidades de crecimiento para microempresas.”
+
+
+
+</span>
+    </div>
+    <nav>
+      <a href="#slider">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- Slider -->
+  <section id="slider" class="slider">
+    <div class="slide active">
+      <img src="IMAGENES/imagenes1.png" alt="Promoción 1">
+    </div>
+    <div class="slide">
+      <img src="IMAGENES/imagenes2.png" alt="Promoción 2">
+    </div>
+    <div class="slide">
+      <img src="IMAGENES/imagen3.png" alt="Promoción 3">
+    </div>
+    <div class="controls">
+      <span class="prev">&#10094;</span>
+      <span class="next">&#10095;</span>
+    </div>
+    <div class="dots"></div>
+  </section>
+
+  <!-- Servicios -->
+  <section id="servicios" class="servicios">
+    <h2>Nuestros Servicios ayudan a todo tipo de empresas.
+
+      
+    </h2>
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="producto">
+          <img src="IMAGENES/imagen5.png" alt="Servicio 1">
+          <h3>Apoyo Digital para Empresas de Envíos y Logística</h3>
+          <p>Ayudamos a negocios de mensajería y transporte a llegar a más clientes con estrategias digitales efectivas y creativas</p>
+          <a href="#comprar" class="btn azul">Más Info</a>
+        </div>
+        <div class="producto">
+          <img src="IMAGENES/imagen4.png" alt="Servicio 2">
+          <h3>Publicidad Digital Creativa y Temática</h3>
+          <p>Publicidad digital creativa y efectiva para pequeños negocios que buscan atraer más clientes y crecer en el mundo online.</p>
+          <a href="#comprar" class="btn rojo">Más Info</a>
+        </div>
+        <div class="producto">
+          <img src="IMAGENES/imagen6.png" alt="Servicio 3">
+          <h3>Diseño Web Profesional</h3>
+          <p>Publicidad digital creativa para pequeños negocios, con campañas temáticas como Halloween que atraen y conectan con tus clientes.</p>
+          <a href="#comprar" class="btn amarillo">Más Info</a>
+        </div>
+      </div>
+      <button class="carousel-btn prev-prod">&#10094;</button>
+      <button class="carousel-btn next-prod">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- Nosotros -->
+  <section id="nosotros" class="nosotros">
+    <h2>Sobre Nosotros</h2>
+    <p>En BizNezt creemos que todas las empresas, sin importar su tamaño, merecen crecer y destacar en el mundo digital. Somos un equipo apasionado por la innovación que ayuda a emprendedores y negocios a conectar con más clientes mediante soluciones creativas en marketing digital, redes sociales y estrategias de posicionamiento.
+
+Nuestra misión es ser el aliado estratégico que impulsa a cada empresa a alcanzar sus metas, utilizando herramientas digitales modernas y un acompañamiento cercano que transforma ideas en resultados reales.</p>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="contactenos">
+    <h2>Contáctanos</h2>
+    <form>
+      <input type="text" placeholder="Tu Nombre"><br><br>
+      <input type="email" placeholder="Tu Email"><br><br>
+      <textarea placeholder="Tu Mensaje"></textarea><br><br>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <!-- CTA -->
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BizNezt - Impulsa tu Negocio</title>
+
+  <!-- Librería de íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Estilos -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      color: #222;
+      background-color: #f9f9f9;
+    }
+
+    h1, h2, h3 {
+      font-family: "Trebuchet MS", sans-serif;
+      font-size: 28px;
+      color: #0044cc;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    /* Redes sociales */
+    .social-links {
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      margin-right: 20px;
+      text-decoration: none;
+      font-size: 24px;
+      color: #0044cc;
+      transition: 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #ff0050; /* Efecto hover */
+    }
+  </style>
+</head>
+<body>
+  <h1>BizNezt - Impulsa tu Negocio</h1>
+  <p>Síguenos en nuestras redes sociales:</p>
+
+  <!-- 🔗 Aquí van los íconos -->
+  <div class="social-links">
+    <a href="https://www.facebook.com/profile.php?id=61580753606890&locale=es_LA" target="_blank"><i class="fab fa-facebook"></i></a>
+    <a href=https://www.instagram.com/biznezt676/ target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="tiktok.com/@biznezt6" target="_blank"><i class="fab fa-tiktok"></i></a>
+  </div>
+</body>
+
+  <script>
+    // === Slider ===
+    const slides = document.querySelectorAll(".slide");
+    const prev = document.querySelector(".prev");
+    const next = document.querySelector(".next");
+    const dotsContainer = document.querySelector(".dots");
+    let index = 0;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement("span");
+      if (i === 0) dot.classList.add("active");
+      dotsContainer.appendChild(dot);
+    });
+    const dots = document.querySelectorAll(".dots span");
+
+    function showSlide(i) {
+      slides[index].classList.remove("active");
+      dots[index].classList.remove("active");
+      index = (i + slides.length) % slides.length;
+      slides[index].classList.add("active");
+      dots[index].classList.add("active");
+    }
+
+    prev.addEventListener("click", () => showSlide(index - 1));
+    next.addEventListener("click", () => showSlide(index + 1));
+    dots.forEach((dot, i) => dot.addEventListener("click", () => showSlide(i)));
+
+    setInterval(() => showSlide(index + 1), 5000);
+
+    // === Carrusel Servicios ===
+    const track = document.querySelector(".carousel-track");
+    const prevProd = document.querySelector(".prev-prod");
+    const nextProd = document.querySelector(".next-prod");
+    let pos = 0;
+
+    prevProd.addEventListener("click", () => {
+      pos = Math.min(pos + 320, 0);
+      track.style.transform = `translateX(${pos}px)`;
+    });
+
+    nextProd.addEventListener("click", () => {
+      pos = Math.max(pos - 320, -((track.children.length - 1) * 320));
+      track.style.transform = `translateX(${pos}px)`;
+    });
+  </script>
+</body>
+</html>
